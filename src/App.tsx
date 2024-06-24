@@ -70,6 +70,7 @@ function App() {
 
     function onWorldviewChange(newWorldview: Bounds) {
         // console.log("onWorldviewChange", newWorldview)
+        // we should update here to treat the center correclty when a user zooms in/out too much.
         updateService.setBounds(newWorldview)
         pixelStore.prepare(newWorldview)
         tileStore.prepare(newWorldview)
@@ -93,6 +94,16 @@ function App() {
     function toggleColorPicker() {
         setIsColorPickerVisible(prevState => !prevState);
     }
+
+    const handleZoomChange = (newZoom: number) => {
+        const minZoom = 3010; // set a min zoom level
+        if (newZoom < minZoom) {
+            setZoom(minZoom);
+        } else {
+            setZoom(newZoom);
+        }
+    };
+    
 
     // useEffect(() => {
     //     function handleClickOutside(event: MouseEvent) {
@@ -169,6 +180,7 @@ function App() {
                                 tileset={tileStore.tileset!}
                                 pixelStore={pixelStore}
                                 zoom={zoom}
+                                // setZoom={handleZoomChange} // added here for hot fix. should be setZoom in the future by using caspar's work.
                                 setZoom={setZoom}
                                 center={center}
                                 setCenter={setCenter}
