@@ -49,7 +49,7 @@ export function drawPixels(
 
 
     if (hoveredCell && zoom > ZOOM_TILEMODE) {
-        drawPixel(hoveredCell[0], hoveredCell[1], 15);
+        drawPixel(hoveredCell[0], hoveredCell[1], 2);
     }
 }
 
