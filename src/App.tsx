@@ -162,7 +162,7 @@ function App() {
             <div className={styles.main}>
 
                 <Routes>
-                    <Route path="/settings" element={<Settings/>}/>
+                    {/* <Route path="/settings" element={<Settings/>}/> */}
                     <Route path="/" element={
                         <>
                             <Viewport
@@ -201,7 +201,7 @@ function App() {
                     }/>
                     <Route path="/governance" element={<Governance />} />
                     <Route path="/new-proposal" element={<NewProposal />} />
-                    <Route path="/proposal/:id" element={<ProposalDetails />} />
+                    {/* <Route path="/proposal/:id" element={<ProposalDetails />} /> */}
 
                 </Routes>
             </div>
