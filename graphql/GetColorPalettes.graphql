@@ -1,0 +1,10 @@
+query GetColorPaletts {
+    paletteColorsModels{
+        edges{
+            node{
+                idx,
+                color
+            }
+        }
+    }
+}

@@ -1,4 +1,17 @@
 import styles from './SimpleColorPicker.module.css';
+import GET_COLOR_PALETTS_QUERY from "@/../graphql/GetColorPalettes.graphql";
+import { GraphQLClient } from 'graphql-request';
+import { ColorPalette } from "@/webtools/types.ts";
+
+
+type GetColorPalettesResponse = {
+  paletteColorsModels: {
+      edges: Array<{
+          node: ColorPalette;
+      }>;
+  };
+};
+
 
 const colors = [
     "#FF0000",

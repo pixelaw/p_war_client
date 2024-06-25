@@ -8,6 +8,11 @@ export type Pixel = {
     y: number
 }
 
+export type ColorPalette = {
+    idx: number
+    color: number
+}
+
 export type App = {
     "system": string,
     "name": string,
