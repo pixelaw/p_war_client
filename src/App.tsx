@@ -3,6 +3,7 @@ import React, {useEffect, useMemo, useState, useRef} from "react";
 import {Bounds, Coordinate} from "@/webtools/types.ts";
 import {useSimpleTileStore} from "@/webtools/hooks/SimpleTileStore.ts";
 import {useDojoPixelStore} from "@/stores/DojoPixelStore.ts";
+// import {useDojoColorPalettesStore} from "@/stores/DojoColorPalettesStore.ts";
 import {useUpdateService} from "@/webtools/hooks/UpdateService.ts";
 import Viewport from "@/webtools/components/Viewport/ViewPort.tsx";
 import SimpleColorPicker from "@/components/ColorPicker/SimpleColorPicker.tsx";
@@ -36,6 +37,7 @@ function App() {
 
     const updateService = useUpdateService(settings.config?.serverUrl!)
     const pixelStore = useDojoPixelStore(settings.config?.toriiUrl!);
+    // const colorPalettesStore = useDojoColorPalettesStore(settings.config?.toriiUrl!);
     const tileStore = useSimpleTileStore(`${settings.config?.serverUrl}/tiles`)
     const appStore = useDojoAppStore();
     const {clientState, error, gameData} = usePixelawProvider();
@@ -162,7 +164,7 @@ function App() {
             <div className={styles.main}>
 
                 <Routes>
-                    <Route path="/settings" element={<Settings/>}/>
+                    {/* <Route path="/settings" element={<Settings/>}/> */}
                     <Route path="/" element={
                         <>
                             <Viewport
@@ -178,7 +180,12 @@ function App() {
                             />
                             {/* <div className={styles.colorpicker} style={{bottom: zoombasedAdjustment}}> */}
                             <div className={styles.colorpicker} style={{ bottom: zoombasedAdjustment, display: isColorPickerVisible ? 'flex' : 'none' }}>
-                                <SimpleColorPicker color={color} onColorSelect={onColorSelect}/>
+                                <SimpleColorPicker
+                                    color={color}
+                                    onColorSelect={onColorSelect}
+                                    // toriiUrl={settings.config?.toriiUrl!}
+                                    // colorPalettesStore={colorPalettesStore}
+                                />
                                 <button className={styles.closeButton} onClick={toggleColorPicker}>
                                     <RiArrowGoBackFill size={22}/>
                                 </button>
@@ -188,6 +195,10 @@ function App() {
                                 <button className={styles.placePixelButton} onClick={() => {toggleColorPicker(); setSelectedApp('p_war');}} style={{ display: isColorPickerVisible ? 'none' : 'flex' }}>
                                     Place a Pixel
                                 </button>
+
+                                {/* <button onClick={colorPalettesStore.getColorPalette}>
+                                    Update a color palette.
+                                </button> */}
                             </div>
 
 
@@ -201,7 +212,7 @@ function App() {
                     }/>
                     <Route path="/governance" element={<Governance />} />
                     <Route path="/new-proposal" element={<NewProposal />} />
-                    <Route path="/proposal/:id" element={<ProposalDetails />} />
+                    {/* <Route path="/proposal/:id" element={<ProposalDetails />} /> */}
 
                 </Routes>
             </div>

@@ -22,12 +22,11 @@ const MenuBar: React.FC = () => {
         <div className={styles.inner}>
             <div className={styles.logoContainer} onClick={() => navigate('/')}>
                 <img src="/assets/logo/pixeLaw-logo.png" alt="logo"/>
-
             </div>
             <div>
                 {showGovernance && <button className={styles.menuButton} onClick={() => navigate('/governance')}>Governance</button>}
-                {!showGovernance && <button className={styles.menuButton} onClick={() => navigate('/')}>Draw</button>}
-                <button className={styles.menuButton} onClick={toggleSettings}>Settings</button>
+                {/* {!showGovernance && <button className={styles.menuButton} onClick={() => navigate('/')}>Draw</button>} */}
+                {/* <button className={styles.menuButton} onClick={toggleSettings}>Settings</button> */}
             </div>
         </div>
     );
