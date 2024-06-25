@@ -13,6 +13,14 @@ export type ColorPalette = {
     color: number
 }
 
+// type PaletteState = { [key: number]: number | undefined };
+
+// export interface ColorPaletteStore {
+//     refresh: () => void;
+//     getColorPalette: () => PaletteState | undefined;
+// }
+
+
 export type App = {
     "system": string,
     "name": string,

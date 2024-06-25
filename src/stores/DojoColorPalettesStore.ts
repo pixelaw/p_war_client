@@ -16,13 +16,11 @@ type GetColorPalettesResponse = {
         }>;
     };
   };
-
+  
 interface ColorPaletteStore {
     refresh: () => void;
     getColorPalette: () => State | undefined;
 }
-
-  
 
 // idx -> color
 type State = { [key: number]: number | undefined };

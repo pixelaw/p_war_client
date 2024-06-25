@@ -6,5 +6,6 @@ query GetColorPaletts {
                 color
             }
         }
+        totalCount
     }
 }
