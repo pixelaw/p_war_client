@@ -28,6 +28,8 @@ const createProposalTitle = (proposalType: ProposalType, hexColor: string) => {
     switch (proposalType) {
         case ProposalType.AddNewColor:
             return `Adding A New Color: ${hexColor.toUpperCase()}`;
+        case ProposalType.MakeADisasterByColor:
+            return `Make A Disaster: ${hexColor.toUpperCase()}`;
         case ProposalType.ResetToWhiteByColor:
             return `Reset To White: ${hexColor.toUpperCase()}`;
         default: {
