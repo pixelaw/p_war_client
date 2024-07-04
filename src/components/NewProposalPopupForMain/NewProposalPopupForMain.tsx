@@ -68,7 +68,10 @@ const NewProposalPopupForMain: React.FC = () => {
       ).then(() => {
         setIsCreatingNewProposal(false);
         // toastProposalAdded('Proposal Added'); // should be broadcast for everyone.
-      }).catch(e => toastContractError(e))
+      }).catch((e) => {
+        console.error("handleSubmit error: ", e)
+        toastContractError(e)
+      })
     }
   };
 
