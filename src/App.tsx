@@ -72,7 +72,7 @@ function App() {
 
             if (firstGame) {
                 const endTimestamp = firstGame[1];
-                setEndDate(new Date(endTimestamp * 1000));
+                setEndDate(new Date(Number(endTimestamp) * 1000));
             }
         }
     }, [gameData]);
