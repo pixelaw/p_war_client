@@ -127,6 +127,7 @@ const ProposalItem: React.FC<PropsType> = ({ proposal, onStartVote, filter, sear
         )
             .then(() => console.log('activateProposal'))
             .catch((e) => {
+                console.error("handleActivateProposal error: ", e)
                 toastContractError(e)
             })
     }

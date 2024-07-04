@@ -92,6 +92,7 @@ const ProposalListForMain: React.FC<ProposalListForMainProps> = ({ headerHeight,
     )
         .then(() => setSelectedProposal(null))
         .catch((e) => {
+            console.error("handleVoteProposal error: ", e)
             toastContractError(e)
         })
 }
