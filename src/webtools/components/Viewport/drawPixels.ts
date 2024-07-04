@@ -46,7 +46,7 @@ export function drawPixels(
 
             // Border
             context.strokeStyle = 'yellow';
-            context.lineWidth = 2;
+            context.lineWidth = 4;
         } else {
             // Reset shadow
             context.shadowColor = 'transparent';
@@ -60,6 +60,10 @@ export function drawPixels(
         }
 
         context.fillRect(x, y, w, h);
+        if (isHovered) {
+            context.strokeRect(x, y, w, h);
+            context.fillRect(x, y, w, h);
+        }
     };
 
     for (let x = 0; x <= gridDimensions[0]; x++) {
