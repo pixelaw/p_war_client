@@ -63,9 +63,6 @@ function App() {
     useDojoInteractHandler(pixelStore, gameData!);
     useSyncedViewStateStore();
     //</editor-fold>
-    // console.log(gameData?.setup.contractComponents.Game);
-
-    // const proposal = useComponentValue(gameData!.setup.contractComponents.Proposal, entityId)
 
     // get end date (FIXME: It's not smooth...)
     useEffect(() => {
