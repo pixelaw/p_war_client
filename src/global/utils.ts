@@ -115,7 +115,12 @@ export const toastProposalAdded = (m: string) => {
     toastSuccess({message: m});
 }
 
+let isToastErrorShown = false;
+
 export const toastContractError = (e: any) => {
+    if (isToastErrorShown) return;
+    isToastErrorShown = true;
+
     const message = e.message || e.toString();
     const transactionErrorIndex = message.indexOf("Transaction execution error: {");
 
@@ -130,14 +135,18 @@ export const toastContractError = (e: any) => {
     } else {
         toastError({ message: extractError(message) });
     }
-}
+
+    setTimeout(() => {
+        isToastErrorShown = false;
+    }, 3000);
+};
 
 const extractError = (message: string): string => {
     const patterns = [
         /'([^']+)'/,
         /not found in contract/,
         /Failure reason:\s(.*?)\./,
-        // 他のパターンをここに追加できます
+        /invalid transaction nonce/,
     ];
 
 
