@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import ProposalItem, { type StartVoteParam } from '../ProposalList/ProposalItem';
 import { usePixelawProvider } from '@/providers/PixelawProvider';
 import { GAME_ID } from '@/global/constants.ts';
-import { toastContractError } from '@/global/utils.ts';
+import { toastContractError, toastProposalAdded } from '@/global/utils.ts';
 import useProposals from '@/hooks/useProposals.ts';
 
 interface ProposalListForMainProps {
@@ -113,7 +113,7 @@ const ProposalListForMain: React.FC<ProposalListForMainProps> = ({
         <div className=''>
             <div
                 className={`overflow-y-auto px-2`}
-                style={{ height: `calc(100vh - ${headerHeight}px - 170px)` }}
+                style={{ height: `calc(100vh - ${headerHeight}px - 30vh)` }}
             >
                 <div className='space-y-4'>
                     {proposalArray.map((proposal) => {

@@ -20,6 +20,7 @@ const PxCounter = () => {
     const [currentPx, setCurrentPx] = useState(playerPx);
     const [lastDate, setLastDate] = useState(playerLastDate);
     const [pxChange, setPxChange] = useState(0);
+
     useEffect(() => {
         if (lastDate === playerLastDate) return;
         const currentSeconds = Math.floor(Date.now() / 1_000);
@@ -28,7 +29,7 @@ const PxCounter = () => {
         setPxChange(newPx - currentPx);
         setCurrentPx(newPx);
         setLastDate(playerLastDate);
-    }, [playerLastDate, playerPx, lastDate, recoveryRate, maxPx]);
+    }, [playerLastDate, playerPx, lastDate, recoveryRate, maxPx, currentPx]);
 
     useEffect(() => {
         if (!recoveryRate || maxPx === currentPx) return;
@@ -51,7 +52,7 @@ const PxCounter = () => {
     }, [pxChange]);
 
     return (
-        <div className={styles.addressContainer}>
+        <div className={`${styles.addressContainer} ${currentPx === 0 ? styles.zeroPx : ''}`}>
             {currentPx}/{maxPx} PX
             {pxChange !== 0 && (
                 <div className={styles.pxChange}>{pxChange > 0 ? `+${pxChange}` : pxChange}</div>

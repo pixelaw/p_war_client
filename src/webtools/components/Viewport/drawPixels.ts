@@ -24,7 +24,12 @@ export function drawPixels(
     const offsets: Coordinate = [0 - pixelOffset[0], 0 - pixelOffset[1]];
 
     // console.log("p", cellSize)
-    const drawPixel = (cellX: number, cellY: number, sizeAdjustment: number = 0) => {
+    const drawPixel = (
+        cellX: number,
+        cellY: number,
+        sizeAdjustment: number = 0,
+        isHovered: boolean = false,
+    ) => {
         const worldCoords = applyWorldOffset(worldTranslation, [cellX, cellY]);
 
         const pixel = getPixel(worldCoords);
@@ -34,17 +39,43 @@ export function drawPixels(
 
         const [x, y, w, h] = getRect(offsets, cellX, cellY, cellSize, doBorder, sizeAdjustment);
 
+        if (isHovered) {
+            // Shadow
+            context.shadowColor = 'rgba(0, 0, 0, 0.5)';
+            context.shadowBlur = 10;
+            context.shadowOffsetX = 5;
+            context.shadowOffsetY = 5;
+
+            // Border
+            context.strokeStyle = 'yellow';
+            context.lineWidth = 4;
+        } else {
+            // Reset shadow
+            context.shadowColor = 'transparent';
+            context.shadowBlur = 0;
+            context.shadowOffsetX = 0;
+            context.shadowOffsetY = 0;
+
+            // Reset border
+            context.strokeStyle = 'transparent';
+            context.lineWidth = 0;
+        }
+
         context.fillRect(x, y, w, h);
+        if (isHovered) {
+            context.strokeRect(x, y, w, h);
+            context.fillRect(x, y, w, h);
+        }
     };
 
     for (let x = 0; x <= gridDimensions[0]; x++) {
         for (let y = 0; y <= gridDimensions[1]; y++) {
-            drawPixel(x, y);
+            drawPixel(x, y, 0, false);
         }
     }
 
     if (hoveredCell && zoom > ZOOM_TILEMODE) {
-        drawPixel(hoveredCell[0], hoveredCell[1], 8); // having a shadow/outline or transition animation.
+        drawPixel(hoveredCell[0], hoveredCell[1], 8, true); // having a shadow/outline or transition animation.
     }
 }
 

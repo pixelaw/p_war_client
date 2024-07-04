@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+// import { Link } from 'react-router-dom';
 import { SketchPicker } from 'react-color';
 import Select, {
     type GroupBase,
@@ -18,8 +19,8 @@ const NewProposalPopupForMain: React.FC = () => {
 
     const [isCreatingNewProposal, setIsCreatingNewProposal] = useState(false);
     const [showColorPicker, setShowColorPicker] = useState(false);
-    const colorPickerRef = useRef<HTMLDivElement | null>(null);
-    const popupRef = useRef<HTMLDivElement | null>(null);
+    const colorPickerRef = useRef<HTMLDivElement>(null);
+    const popupRef = useRef<HTMLDivElement>(null);
 
     const { gameData } = usePixelawProvider();
 
@@ -72,6 +73,7 @@ const NewProposalPopupForMain: React.FC = () => {
                 )
                 .then(() => {
                     setIsCreatingNewProposal(false);
+                    // toastProposalAdded('Proposal Added'); // should be broadcast for everyone.
                 })
                 .catch((e) => toastContractError(e));
         }
@@ -162,12 +164,14 @@ const NewProposalPopupForMain: React.FC = () => {
                     onClick={() => setIsCreatingNewProposal(true)}
                     className='w-full rounded-md bg-blue-600 px-10 py-3 text-sm font-semibold text-white shadow-lg transition duration-300 hover:bg-blue-500'
                 >
-                    Create A New Proposal
+                    Create A New Proposal(5PX)
                 </button>
             )}
 
             {isCreatingNewProposal && (
                 <div className='fixed inset-0 z-20 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur'>
+                    {/* <div className='min-h-screen bg-gray-900 text-white flex flex-col'> */}
+                    {/* <div className='flex justify-center items-center flex-grow p-4'> */}
                     <div ref={popupRef} className='w-1/3'>
                         <div className='w-full max-w-xl rounded-lg bg-gray-800 p-12 text-white shadow-lg'>
                             <h2 className='mb-6 text-3xl font-bold'>New Proposal</h2>
