@@ -151,10 +151,7 @@ const ProposalItem: React.FC<PropsType> = ({ proposal, onStartVote, filter, sear
         proposal.is_activated;
 
     return (
-        <div
-            // className='relative bg-gray-800 p-4 rounded-md border border-gray-700 hover:border-gray-600 transition-colors duration-300'>
-            className={containerClassName}
-        >
+        <div className={containerClassName}>
             <div className='block'>
                 <div className='mb-1 flex items-center justify-between'>
                     <div
