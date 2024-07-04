@@ -25,7 +25,7 @@ import ProposalListForMain from './components/NewProposalPopupForMain/ProposalLi
 import FilterMenu from './components/FilterMenu/FilterMenu';
 import {Slide, ToastContainer} from "react-toastify";
 import useBoard from "@/hooks/useBoard.ts";
-import {GAME_ID} from "@/global/constants.ts";
+import {GAME_ID, sounds} from "@/global/constants.ts";
 import useSound from "use-sound";
 import {BoardBounds, createBoardBounds, isCoordinateInBounds} from "@/webtools/utils.ts";
 
@@ -59,7 +59,7 @@ function App() {
         selectedApp, // added
         setSelectedApp, // added
     } = useViewStateStore();
-    const [play] = useSound("/assets/sounds/effects/place_color.mp3");
+    const [play] = useSound(sounds.placeColor);
 
     // FIXME: should be in the ViewStateStore??
     const [isColorPickerVisible, setIsColorPickerVisible] = useState(false);

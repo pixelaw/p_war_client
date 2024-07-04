@@ -8,6 +8,8 @@ import {useEffect} from "react";
 import {toastSuccess} from "@/components/Toast";
 import {shortenHex} from "@dojoengine/utils";
 import {usePixelawProvider} from "@/providers/PixelawProvider.tsx";
+import { sounds } from '@/global/constants';
+import useSound from "use-sound";
 
 export type ProposalDataType = {
     game_id: number,
@@ -85,6 +87,7 @@ type SubscriptionMessageType = {
 }
 
 export const useProposalSubscription = () => {
+    const [play] = useSound(sounds.activateProposal, {volume: 0.5});
     const settings = useSettingsStore()
     const baseUrl = settings?.config?.toriiUrl ?? ''
     const client = createClient({
@@ -115,6 +118,8 @@ export const useProposalSubscription = () => {
                         const isPlayer = gameData?.account?.account?.address?.toLowerCase() === newProposal.author.toLowerCase()
                         const playerAddress = isPlayer ? 'You' : shortenHex(newProposal.author, 10)
 
+                        play()
+
                         toastSuccess({
                             message: `${playerAddress} just created a new proposal`
                         })
@@ -127,5 +132,5 @@ export const useProposalSubscription = () => {
         )
 
         return () => unsubscribe()
-    }, [gameData, queryClient, client])
+    }, [gameData, queryClient, client, play])
 }

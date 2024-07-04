@@ -10,11 +10,11 @@ export const BLOCK_TIME = 1_000;
 
 export const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000000000000000000000000000";
 
-export const PROPOSAL_CONTRACT_ADDRESS ='0x481aadb9eab76d625be9d0ab0af0155c9f162fd3af1113abd0d0308ddb9346e'
-export const VOTING_CONTRACT_ADDRESS ='0x405fdfa192f0a756c50dc081d0a4a10afbc5ed29a774665ab6a34cef4d4a549'
-export const GAME_ID = 1
-export const NEEDED_YES_PX = 1
-export const PALETTE_COLORS_LENGTH = 9
+export const PROPOSAL_CONTRACT_ADDRESS = "0x481aadb9eab76d625be9d0ab0af0155c9f162fd3af1113abd0d0308ddb9346e";
+export const VOTING_CONTRACT_ADDRESS = "0x405fdfa192f0a756c50dc081d0a4a10afbc5ed29a774665ab6a34cef4d4a549";
+export const GAME_ID = 1;
+export const NEEDED_YES_PX = 1;
+export const PALETTE_COLORS_LENGTH = 9;
 
 export const proposals = [
     {
@@ -76,5 +76,10 @@ export const proposals = [
         status: "closed",
         statusColor: "bg-purple-500",
         comments: "",
-    }
-]
+    },
+];
+
+export const sounds = {
+    placeColor: "/assets/sounds/effects/place_color.mp3",
+    activateProposal: "/assets/sounds/effects/activate_proposal.mp3",
+};
