@@ -28,7 +28,6 @@ import { type Bounds, type Coordinate, toString } from '@/webtools/types.ts';
 import { type BoardBounds, createBoardBounds, isCoordinateInBounds } from '@/webtools/utils.ts';
 
 function App() {
-    // console.log("App")
     //<editor-fold desc="State">
 
     //</editor-fold>
@@ -124,7 +123,6 @@ function App() {
         }
     }, [hasBoard]);
     function onWorldviewChange(newWorldview: Bounds) {
-        // console.log("onWorldviewChange", newWorldview)
         updateService.setBounds(newWorldview);
         pixelStore.prepare(newWorldview);
         tileStore.prepare(newWorldview);
