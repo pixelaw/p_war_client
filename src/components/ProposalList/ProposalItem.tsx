@@ -136,6 +136,7 @@ const ProposalItem: React.FC<PropsType> = ({ proposal, onStartVote, filter, sear
             .activateProposal(gameData.account.account, GAME_ID, proposal.index)
             .then(() => console.log('activateProposal'))
             .catch((e) => {
+                console.error('handleActivateProposal error: ', e);
                 toastContractError(e);
             });
     };

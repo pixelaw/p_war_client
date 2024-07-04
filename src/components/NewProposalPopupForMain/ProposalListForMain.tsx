@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import ProposalItem, { type StartVoteParam } from '../ProposalList/ProposalItem';
 import { usePixelawProvider } from '@/providers/PixelawProvider';
 import { GAME_ID } from '@/global/constants.ts';
-import { toastContractError, toastProposalAdded } from '@/global/utils.ts';
+import { toastContractError } from '@/global/utils.ts';
 import useProposals from '@/hooks/useProposals.ts';
 
 interface ProposalListForMainProps {
@@ -49,25 +49,25 @@ const ProposalListForMain: React.FC<ProposalListForMainProps> = ({
     const proposals = useProposals(GAME_ID);
     const proposalArray = proposals?.data ?? [];
 
-    // const getStatusColor = (status: string) => {
-    //     if (status.startsWith('end in')) {
-    //         return 'bg-green-500';
-    //     } else if (status === 'closed') {
-    //         return 'bg-purple-500';
-    //     } else {
-    //         return 'bg-gray-500';
-    //     }
-    // };
+    const getStatusColor = (status: string) => {
+        if (status.startsWith('end in')) {
+            return 'bg-green-500';
+        } else if (status === 'closed') {
+            return 'bg-purple-500';
+        } else {
+            return 'bg-gray-500';
+        }
+    };
 
-    // const getStatusColorForBg = (status: string) => {
-    //     if (status.startsWith('end in')) {
-    //         return 'bg-black-800';
-    //     } else if (status === 'closed') {
-    //         return 'bg-gray-500';
-    //     } else {
-    //         return 'bg-black-800';
-    //     }
-    // };
+    const getStatusColorForBg = (status: string) => {
+        if (status.startsWith('end in')) {
+            return 'bg-black-800';
+        } else if (status === 'closed') {
+            return 'bg-gray-500';
+        } else {
+            return 'bg-black-800';
+        }
+    };
 
     const handleVote = (proposal: StartVoteParam) => {
         setSelectedProposal(proposal);
@@ -86,6 +86,7 @@ const ProposalListForMain: React.FC<ProposalListForMainProps> = ({
             )
             .then(() => setSelectedProposal(null))
             .catch((e) => {
+                console.error('handleVoteProposal error: ', e);
                 toastContractError(e);
             });
     };
@@ -110,7 +111,7 @@ const ProposalListForMain: React.FC<ProposalListForMainProps> = ({
     };
 
     return (
-        <div className=''>
+        <div>
             <div
                 className={`overflow-y-auto px-2`}
                 style={{ height: `calc(100vh - ${headerHeight}px - 30vh)` }}

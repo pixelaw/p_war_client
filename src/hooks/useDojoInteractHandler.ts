@@ -62,9 +62,9 @@ export const useDojoInteractHandler = (pixelStore: PixelStore, gameData: IPixela
                 // Do something with the UI?
             })
             .catch((e) => {
-                console.error(e);
+                console.error('dojocall error', e);
                 toastContractError(e);
             });
         setClickedCell(undefined);
-    }, [setClickedCell, clickedCell]);
+    }, [setClickedCell, clickedCell, color, selectedApp, pixelStore, gameData]);
 };
