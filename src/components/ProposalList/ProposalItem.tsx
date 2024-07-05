@@ -28,10 +28,10 @@ const createProposalTitle = (proposalType: ProposalType, hexColor: string) => {
     switch (proposalType) {
         case ProposalType.AddNewColor:
             return `Adding A New Color: ${hexColor.toUpperCase()}`;
-        case ProposalType.ResetToWhiteByColor:
-            return `Reset To White: ${hexColor.toUpperCase()}`;
         case ProposalType.MakeADisasterByColor:
             return `Make A Disaster: ${hexColor.toUpperCase()}`;
+        case ProposalType.ResetToWhiteByColor:
+            return `Reset To White: ${hexColor.toUpperCase()}`;
         default: {
             console.error('unhandled proposal type: ', proposalType);
             return '';
@@ -136,7 +136,7 @@ const ProposalItem: React.FC<PropsType> = ({ proposal, onStartVote, filter, sear
         if (!gameData?.account.account) return;
         gameData.setup.systemCalls
             .activateProposal(gameData.account.account, GAME_ID, proposal.index)
-            .then(() => console.log('activateProposal'))
+            .then(() => console.log('activateProposal', proposal))
             .catch((e) => {
                 console.error('handleActivateProposal error: ', e);
                 toastContractError(e);
@@ -151,10 +151,7 @@ const ProposalItem: React.FC<PropsType> = ({ proposal, onStartVote, filter, sear
         proposal.is_activated;
 
     return (
-        <div
-            // className='relative bg-gray-800 p-4 rounded-md border border-gray-700 hover:border-gray-600 transition-colors duration-300'>
-            className={containerClassName}
-        >
+        <div className={containerClassName}>
             <div className='block'>
                 <div className='mb-1 flex items-center justify-between'>
                     <div

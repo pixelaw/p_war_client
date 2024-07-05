@@ -7,10 +7,11 @@ import Select, {
     type SingleValue,
 } from 'react-select';
 import { ProposalType } from '@/global/types';
-import { GAME_ID } from '@/global/constants';
+import { GAME_ID, sounds } from '@/global/constants';
 import { usePixelawProvider } from '@/providers/PixelawProvider';
 import { hexRGBtoNumber, numRGBAToHex, toastContractError } from '@/global/utils.ts';
 import useAllowedColors from '@/hooks/useAllowedColors.ts';
+import { useSound } from 'use-sound';
 
 const NewProposalPopupForMain: React.FC = () => {
     const [proposalType, setProposalType] = useState<ProposalType>(ProposalType.AddNewColor);
@@ -19,6 +20,8 @@ const NewProposalPopupForMain: React.FC = () => {
     const [showColorPicker, setShowColorPicker] = useState(false);
     const colorPickerRef = useRef<HTMLDivElement | null>(null);
     const popupRef = useRef<HTMLDivElement | null>(null);
+
+    const [playError] = useSound(sounds.error, { volume: 0.5 });
 
     const { gameData } = usePixelawProvider();
 
@@ -72,6 +75,7 @@ const NewProposalPopupForMain: React.FC = () => {
                 .catch((e) => {
                     console.error('handleSubmit error: ', e);
                     toastContractError(e);
+                    playError();
                 });
         }
     };

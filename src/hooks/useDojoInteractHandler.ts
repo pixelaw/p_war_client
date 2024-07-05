@@ -6,11 +6,14 @@ import getParamsDef from '@/dojo/utils/paramsDef.ts';
 import { coordinateToPosition, hexRGBtoNumber, toastContractError } from '@/global/utils.ts';
 import { useViewStateStore } from '@/stores/ViewStateStore.ts';
 import { type PixelStore } from '@/webtools/types.ts';
+import { useSound } from 'use-sound';
+import { sounds } from '@/global/constants';
 
 // TODO maybe cleaner to directly use the Dojo hook here, but its not working.
 // For now passing the pixelStore
 export const useDojoInteractHandler = (pixelStore: PixelStore, gameData: IPixelawGameData) => {
     const { setClickedCell, clickedCell, selectedApp, color } = useViewStateStore();
+    const [playError] = useSound(sounds.error, { volume: 0.5 });
 
     useEffect(() => {
         if (!clickedCell || !selectedApp) return;
@@ -64,6 +67,7 @@ export const useDojoInteractHandler = (pixelStore: PixelStore, gameData: IPixela
             .catch((e) => {
                 console.error('dojocall error', e);
                 toastContractError(e);
+                playError();
             });
         setClickedCell(undefined);
     }, [setClickedCell, clickedCell, color, selectedApp, pixelStore, gameData]);
