@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, useRef } from 'react';
+import { useEffect, useMemo, useState, useRef } from 'react';
 import Loading from '@/components/Loading/Loading.tsx';
 import Settings from '@/pages/Settings/Settings.tsx';
 import { usePixelawProvider } from '@/providers/PixelawProvider.tsx';
@@ -99,7 +99,7 @@ function App() {
     );
     const hasBoard = !!board?.data;
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (!hasBoard) return;
         const origin = board.data!.origin;
         for (let y = origin.y - 1; y <= origin.y + board.data!.height; y++) {

@@ -8,7 +8,7 @@ import { GAME_ID } from '@/global/constants';
 import { hexRGBtoNumber } from '@/global/utils.ts';
 
 const NewProposal: React.FC = () => {
-    const [proposalType, setProposalType] = useState('Add Color');
+    const [proposalType, setProposalType] = useState<ProposalType>(ProposalType.AddNewColor);
     const [color, setColor] = useState('#FFFFFF');
     const [showColorPicker, setShowColorPicker] = useState(false);
     const colorPickerRef = useRef<HTMLDivElement | null>(null);
@@ -34,16 +34,12 @@ const NewProposal: React.FC = () => {
     const { gameData } = usePixelawProvider();
 
     const handleSubmit = () => {
-        const type =
-            proposalType === 'Add Color'
-                ? ProposalType.AddNewColor
-                : ProposalType.ResetToWhiteByColor;
         if (gameData && gameData.account.account) {
             gameData.setup.systemCalls
                 .createProposal(
                     gameData.account.account,
                     GAME_ID,
-                    type,
+                    proposalType,
                     hexRGBtoNumber(color.replace('#', '')),
                 )
                 .then(() => navigate('/governance'));
@@ -109,15 +105,19 @@ const NewProposal: React.FC = () => {
                         <label className='mb-2 block text-lg'>Select Proposal Type</label>
                         <select
                             value={proposalType}
-                            onChange={(e) => setProposalType(e.target.value)}
+                            onChange={(e) =>
+                                setProposalType(
+                                    ProposalType[e.target.value as keyof typeof ProposalType],
+                                )
+                            }
                             className='w-full rounded-md bg-gray-700 p-3 text-white'
                         >
-                            <option value='Add Color'>Add Color</option>
-                            <option value='Make A Disaster'>Make A Disaster</option>
+                            <option value='AddNewColor'>Add Color</option>
+                            <option value='MakeADisasterByColor'>Reset To White</option>
                         </select>
                     </div>
 
-                    {proposalType === 'Add Color' && (
+                    {proposalType === ProposalType.AddNewColor && (
                         <div className='mb-4'>
                             <label className='mb-2 block text-lg'>Color (i.e. #00FFAA)</label>
                             <div className='relative flex items-center'>
@@ -149,7 +149,7 @@ const NewProposal: React.FC = () => {
                         </div>
                     )}
 
-                    {proposalType === 'Make A Disaster' && (
+                    {proposalType === ProposalType.MakeADisasterByColor && (
                         <div className='mb-4'>
                             <label className='mb-2 block text-lg'>
                                 Choose a color to turn white on the canvas.

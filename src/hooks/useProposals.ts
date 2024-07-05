@@ -33,7 +33,7 @@ type Data = {
 
 const useProposals = (gameId: number) => {
     const settings = useSettingsStore();
-    const baseUrl = settings?.config?.toriiUrl ?? '';
+    const baseUrl = settings?.config?.toriiUrl ?? 'http://localhost:8080';
     const gqlClient = new GraphQLClient(`${baseUrl}/graphql`);
 
     return useQuery({
@@ -84,7 +84,7 @@ type SubscriptionMessageType = {
 export const useProposalSubscription = () => {
     const [play] = useSound(sounds.activateProposal, { volume: 0.5 });
     const settings = useSettingsStore();
-    const baseUrl = settings?.config?.toriiUrl ?? '';
+    const baseUrl = settings?.config?.toriiUrl ?? 'http://localhost:8080';
     const client = createClient({
         url: baseUrl.replace('http', 'ws') + '/graphql',
     });

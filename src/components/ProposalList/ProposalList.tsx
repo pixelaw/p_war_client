@@ -152,7 +152,7 @@ const ProposalList: React.FC<ProposalListProps> = ({ headerHeight }) => {
                 </div>
             </div>
             {selectedProposal && (
-                <div className='fixed inset-0 z-20 flex items-center justify-center bg-black bg-opacity-50'>
+                <div className='fixed inset-0 z-20 flex items-center justify-center bg-black/50'>
                     <div
                         ref={modalRef}
                         className='w-1/3 rounded-lg bg-gray-800 p-6 text-white shadow-lg'

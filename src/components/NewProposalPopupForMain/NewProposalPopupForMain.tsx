@@ -166,7 +166,7 @@ const NewProposalPopupForMain: React.FC = () => {
             )}
 
             {isCreatingNewProposal && (
-                <div className='fixed inset-0 z-20 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur'>
+                <div className='fixed inset-0 z-20 flex items-center justify-center bg-black/50 backdrop-blur'>
                     <div ref={popupRef} className='w-1/3'>
                         <div className='w-full max-w-xl rounded-lg bg-gray-800 p-12 text-white shadow-lg'>
                             <h2 className='mb-6 text-3xl font-bold'>New Proposal</h2>
@@ -175,12 +175,16 @@ const NewProposalPopupForMain: React.FC = () => {
                                 <select
                                     value={proposalType}
                                     onChange={(e) =>
-                                        setProposalType(e.target.value as unknown as ProposalType)
+                                        setProposalType(
+                                            ProposalType[
+                                                e.target.value as keyof typeof ProposalType
+                                            ],
+                                        )
                                     }
                                     className='w-full rounded-md bg-gray-700 p-3 text-white'
                                 >
-                                    <option value='Add Color'>Add Color</option>
-                                    <option value='Reset To White'>Reset To White</option>
+                                    <option value='AddNewColor'>Add Color</option>
+                                    <option value='MakeADisasterByColor'>Reset To White</option>
                                 </select>
                             </div>
 
