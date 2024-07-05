@@ -13,7 +13,7 @@ import { hexRGBtoNumber, numRGBAToHex, toastContractError } from '@/global/utils
 import useAllowedColors from '@/hooks/useAllowedColors.ts';
 
 const NewProposalPopupForMain: React.FC = () => {
-    const [proposalType, setProposalType] = useState('Add Color');
+    const [proposalType, setProposalType] = useState<ProposalType>(ProposalType.AddNewColor);
     const [color, setColor] = useState('#FFFFFF00');
     const [isCreatingNewProposal, setIsCreatingNewProposal] = useState(false);
     const [showColorPicker, setShowColorPicker] = useState(false);
@@ -57,21 +57,16 @@ const NewProposalPopupForMain: React.FC = () => {
     }, []);
 
     const handleSubmit = () => {
-        const type =
-            proposalType === 'Add Color'
-                ? ProposalType.AddNewColor
-                : ProposalType.ResetToWhiteByColor;
         if (gameData && gameData.account.account) {
             gameData.setup.systemCalls
                 .createProposal(
                     gameData.account.account,
                     GAME_ID,
-                    type,
+                    proposalType,
                     hexRGBtoNumber(formatColorToRGB(color).replace('#', '')),
                 )
                 .then(() => {
                     setIsCreatingNewProposal(false);
-                    // toastProposalAdded('Proposal Added'); // should be broadcast for everyone.
                 })
                 .catch((e) => {
                     console.error('handleSubmit error: ', e);
@@ -170,7 +165,7 @@ const NewProposalPopupForMain: React.FC = () => {
             )}
 
             {isCreatingNewProposal && (
-                <div className='fixed inset-0 z-20 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur'>
+                <div className='fixed inset-0 z-20 flex items-center justify-center bg-black/50 backdrop-blur'>
                     <div ref={popupRef} className='w-1/3'>
                         <div className='w-full max-w-xl rounded-lg bg-gray-800 p-12 text-white shadow-lg'>
                             <h2 className='mb-6 text-3xl font-bold'>New Proposal</h2>
@@ -178,15 +173,21 @@ const NewProposalPopupForMain: React.FC = () => {
                                 <label className='mb-2 block text-lg'>Select Proposal Type</label>
                                 <select
                                     value={proposalType}
-                                    onChange={(e) => setProposalType(e.target.value)}
+                                    onChange={(e) =>
+                                        setProposalType(
+                                            ProposalType[
+                                                e.target.value as keyof typeof ProposalType
+                                            ],
+                                        )
+                                    }
                                     className='w-full rounded-md bg-gray-700 p-3 text-white'
                                 >
-                                    <option value='Add Color'>Add Color</option>
-                                    <option value='Reset To White'>Reset To White</option>
+                                    <option value='AddNewColor'>Add Color</option>
+                                    <option value='MakeADisasterByColor'>Reset To White</option>
                                 </select>
                             </div>
 
-                            {proposalType === 'Add Color' && (
+                            {proposalType === ProposalType.AddNewColor && (
                                 <div className='mb-4'>
                                     <label className='mb-2 block text-lg'>
                                         Color (i.e. #00FFAA)
@@ -226,7 +227,7 @@ const NewProposalPopupForMain: React.FC = () => {
                                 </div>
                             )}
 
-                            {proposalType === 'Reset To White' && (
+                            {proposalType === ProposalType.ResetToWhiteByColor && (
                                 <div className='mb-4'>
                                     <label className='mb-2 block text-lg'>
                                         Choose a color to turn white on the canvas.
