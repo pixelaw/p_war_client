@@ -155,6 +155,9 @@ const config = {
             boxShadow: {
                 glow: '0 0 10px 0 rgba(255, 255, 255, 1)',
             },
+            zIndex: {
+                '999': '999',
+            },
         },
     },
     plugins: [require('tailwindcss-animate')],

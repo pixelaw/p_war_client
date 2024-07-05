@@ -319,7 +319,7 @@ function App() {
             </div>
             <ToastContainer
                 position='top-right'
-                className={'top-12 z-50 w-full min-w-[200px] max-w-[420px]'}
+                className={'top-12 z-999 w-full min-w-[200px] max-w-[420px]'}
                 limit={2}
                 transition={Slide}
                 closeButton={false}
