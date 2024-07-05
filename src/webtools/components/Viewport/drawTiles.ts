@@ -1,4 +1,4 @@
-import { type Coordinate, MAX_UINT32, type Tileset } from '../../types.ts';
+import { type Coordinate, MAX_UINT32, type Tileset, type Dimension } from '../../types.ts';
 import { applyWorldOffset, nextTileCoord, getInitialOffset } from '../../utils.ts';
 import { ZOOM_FACTOR } from './constants.ts';
 
@@ -6,6 +6,7 @@ export function drawTiles(
     context: CanvasRenderingContext2D,
     zoom: number,
     pixelOffset: Coordinate,
+    dimensions: Dimension,
     worldOffset: Coordinate,
     tileset: Tileset,
 ) {

@@ -105,15 +105,11 @@ const NewProposal: React.FC = () => {
                         <label className='mb-2 block text-lg'>Select Proposal Type</label>
                         <select
                             value={proposalType}
-                            onChange={(e) =>
-                                setProposalType(
-                                    ProposalType[e.target.value as keyof typeof ProposalType],
-                                )
-                            }
+                            onChange={(e) => setProposalType(Number(e.target.value))}
                             className='w-full rounded-md bg-gray-700 p-3 text-white'
                         >
-                            <option value='AddNewColor'>Add Color</option>
-                            <option value='MakeADisasterByColor'>Reset To White</option>
+                            <option value='1'>Add Color</option>
+                            <option value='2'>Reset To White</option>
                         </select>
                     </div>
 
