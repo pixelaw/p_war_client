@@ -68,6 +68,7 @@ const NewProposalPopupForMain: React.FC = () => {
                     GAME_ID,
                     proposalType,
                     hexRGBtoNumber(formatColorToRGB(color).replace('#', '')),
+                    Number(0),
                 )
                 .then(() => {
                     setIsCreatingNewProposal(false);
@@ -165,7 +166,7 @@ const NewProposalPopupForMain: React.FC = () => {
                     onClick={() => setIsCreatingNewProposal(true)}
                     className='w-full rounded-md bg-blue-600 px-10 py-3 text-sm font-semibold text-white shadow-lg transition duration-300 hover:bg-blue-500'
                 >
-                    Create A New Proposal(5PX)
+                    Create A New Proposal(6PX)
                 </button>
             )}
 
@@ -226,7 +227,7 @@ const NewProposalPopupForMain: React.FC = () => {
                                 </div>
                             )}
 
-                            {proposalType === ProposalType.MakeADisasterByColor && (
+                            {proposalType === ProposalType.ResetToWhiteByColor && (
                                 <div className='mb-4'>
                                     <label className='mb-2 block text-lg'>
                                         Choose a color to turn white on the canvas.

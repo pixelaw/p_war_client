@@ -3,7 +3,7 @@ import { usePixelawProvider } from '@/providers/PixelawProvider.tsx';
 import { ProposalType } from '@/global/types.ts';
 import { numRGBAToHex } from '@/webtools/utils.ts';
 import { GAME_ID, NEEDED_YES_PX } from '@/global/constants.ts';
-import { formatWalletAddress, toastContractError } from '@/global/utils.ts';
+import { formatWalletAddress, toastContractError, formatTimeRemaining, formatTimeRemainingFotTitle } from '@/global/utils.ts';
 import { type ProposalDataType } from '@/hooks/useProposals.ts';
 
 export type StartVoteParam = {
@@ -24,14 +24,16 @@ type PropsType = {
     searchTerm?: string;
 };
 
-const createProposalTitle = (proposalType: ProposalType, hexColor: string) => {
+const createProposalTitle = (proposalType: ProposalType, target_args_1: number, target_args_2: number) => {
     switch (proposalType) {
         case ProposalType.AddNewColor:
-            return `Adding A New Color: ${hexColor.toUpperCase()}`;
-        case ProposalType.MakeADisasterByColor:
-            return `Make A Disaster: ${hexColor.toUpperCase()}`;
+            return `Adding A New Color: ${numRGBAToHex(target_args_1).toUpperCase()}`;
         case ProposalType.ResetToWhiteByColor:
-            return `Reset To White: ${hexColor.toUpperCase()}`;
+            return `Make A Disaster: ${numRGBAToHex(target_args_1).toUpperCase()}`;
+        case ProposalType.ExtendGameEndTime:
+            return `Extend Game End Time: ${formatTimeRemainingFotTitle(target_args_1)}`;
+        case ProposalType.ExpandArea:
+            return `Expand Area: x ${target_args_1} y ${target_args_2}`;
         default: {
             console.error('unhandled proposal type: ', proposalType);
             return '';
@@ -67,26 +69,6 @@ const ProposalItem: React.FC<PropsType> = ({ proposal, onStartVote, filter, sear
     const start = Number(proposal?.start ?? 0);
     const end = Number(proposal?.end ?? 0);
 
-    function formatTimeRemaining(remainingSeconds: number) {
-        const hours = Math.floor(remainingSeconds / 3600);
-        remainingSeconds %= 3600;
-        const minutes = Math.floor(remainingSeconds / 60);
-        const seconds = remainingSeconds % 60;
-
-        let formattedTime = '';
-        if (hours > 0) {
-            formattedTime += `${hours}h`;
-        }
-        if (minutes > 0) {
-            formattedTime += `${minutes}m`;
-        }
-        if (seconds > 0) {
-            formattedTime += `${seconds}s`;
-        }
-
-        return formattedTime || '0s';
-    }
-
     useEffect(() => {
         if (proposalStatus === 'closed') return;
 
@@ -109,8 +91,8 @@ const ProposalItem: React.FC<PropsType> = ({ proposal, onStartVote, filter, sear
 
     if (!proposal) return <></>;
 
-    const hexColor = numRGBAToHex(proposal.target_color);
-    const title = createProposalTitle(proposal.proposal_type, hexColor);
+    const hexColor = numRGBAToHex(proposal.target_args_1);
+    const title = createProposalTitle(proposal.proposal_type, proposal.target_args_1, proposal.target_args_2);
     const canActivateProposal =
         proposal.yes_px >= NEEDED_YES_PX && proposal.yes_px > proposal.no_px;
 
