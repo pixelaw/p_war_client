@@ -32,6 +32,32 @@ export function defineContractComponents(world: World) {
         }
       );
     })(),
+    GamePalette: (() => {
+      return defineComponent(
+        world,
+        { game_id: RecsType.Number, length: RecsType.Number },
+        {
+          metadata: {
+            name: "GamePalette",
+            types: ["usize","usize"],
+            customTypes: [],
+          },
+        }
+      );
+    })(),
+    InPalette: (() => {
+      return defineComponent(
+        world,
+        { game_id: RecsType.Number, color: RecsType.Number, value: RecsType.Boolean },
+        {
+          metadata: {
+            name: "InPalette",
+            types: ["usize","u32","bool"],
+            customTypes: [],
+          },
+        }
+      );
+    })(),
     PaletteColors: (() => {
       return defineComponent(
         world,
@@ -87,11 +113,11 @@ export function defineContractComponents(world: World) {
     Game: (() => {
       return defineComponent(
         world,
-        { id: RecsType.Number, start: RecsType.BigInt, end: RecsType.BigInt, proposal_idx: RecsType.Number, next_color_idx_to_change: RecsType.Number, base_cost: RecsType.Number, const_val: RecsType.Number, coeff_own_pixels: RecsType.Number, coeff_commits: RecsType.Number, winner_config: RecsType.Number, winner: RecsType.BigInt },
+        { id: RecsType.Number, start: RecsType.BigInt, end: RecsType.BigInt, proposal_idx: RecsType.Number, base_cost: RecsType.Number, const_val: RecsType.Number, coeff_own_pixels: RecsType.Number, coeff_commits: RecsType.Number, winner_config: RecsType.Number, winner: RecsType.BigInt },
         {
           metadata: {
             name: "Game",
-            types: ["usize","u64","u64","usize","usize","u32","u32","u32","u32","u32","contractaddress"],
+            types: ["usize","u64","u64","usize","u32","u32","u32","u32","u32","contractaddress"],
             customTypes: [],
           },
         }
@@ -139,11 +165,76 @@ export function defineContractComponents(world: World) {
     Proposal: (() => {
       return defineComponent(
         world,
-        { game_id: RecsType.Number, index: RecsType.Number, author: RecsType.BigInt, proposal_type: RecsType.Number, target_color: RecsType.Number, start: RecsType.BigInt, end: RecsType.BigInt, yes_px: RecsType.Number, no_px: RecsType.Number },
+        { game_id: RecsType.Number, index: RecsType.Number, author: RecsType.BigInt, proposal_type: RecsType.Number, target_args_1: RecsType.Number, target_args_2: RecsType.Number, start: RecsType.BigInt, end: RecsType.BigInt, yes_px: RecsType.Number, no_px: RecsType.Number, is_activated: RecsType.Boolean },
         {
           metadata: {
             name: "Proposal",
-            types: ["usize","usize","contractaddress","u8","u32","u64","u64","u32","u32"],
+            types: ["usize","usize","contractaddress","enum","u32","u32","u64","u64","u32","u32","bool"],
+            customTypes: ["ProposalType"],
+          },
+        }
+      );
+    })(),
+    Snake: (() => {
+      return defineComponent(
+        world,
+        { owner: RecsType.BigInt, length: RecsType.Number, first_segment_id: RecsType.Number, last_segment_id: RecsType.Number, direction: RecsType.Number, color: RecsType.Number, text: RecsType.BigInt, is_dying: RecsType.Boolean },
+        {
+          metadata: {
+            name: "Snake",
+            types: ["contractaddress","u8","u32","u32","enum","u32","felt252","bool"],
+            customTypes: ["Direction"],
+          },
+        }
+      );
+    })(),
+    SnakeSegment: (() => {
+      return defineComponent(
+        world,
+        { id: RecsType.Number, previous_id: RecsType.Number, next_id: RecsType.Number, x: RecsType.Number, y: RecsType.Number, pixel_original_color: RecsType.Number, pixel_original_text: RecsType.BigInt, pixel_original_app: RecsType.BigInt },
+        {
+          metadata: {
+            name: "SnakeSegment",
+            types: ["u32","u32","u32","u32","u32","u32","felt252","contractaddress"],
+            customTypes: [],
+          },
+        }
+      );
+    })(),
+    Permissions: (() => {
+      return defineComponent(
+        world,
+        { allowing_app: RecsType.BigInt, allowed_app: RecsType.BigInt, permission: { app: RecsType.Boolean, color: RecsType.Boolean, owner: RecsType.Boolean, text: RecsType.Boolean, timestamp: RecsType.Boolean, action: RecsType.Boolean } },
+        {
+          metadata: {
+            name: "Permissions",
+            types: ["contractaddress","contractaddress","bool","bool","bool","bool","bool","bool"],
+            customTypes: ["Permission"],
+          },
+        }
+      );
+    })(),
+    Pixel: (() => {
+      return defineComponent(
+        world,
+        { x: RecsType.Number, y: RecsType.Number, created_at: RecsType.BigInt, updated_at: RecsType.BigInt, app: RecsType.BigInt, color: RecsType.Number, owner: RecsType.BigInt, text: RecsType.BigInt, timestamp: RecsType.BigInt, action: RecsType.BigInt },
+        {
+          metadata: {
+            name: "Pixel",
+            types: ["u32","u32","u64","u64","contractaddress","u32","contractaddress","felt252","u64","felt252"],
+            customTypes: [],
+          },
+        }
+      );
+    })(),
+    QueueItem: (() => {
+      return defineComponent(
+        world,
+        { id: RecsType.BigInt, valid: RecsType.Boolean },
+        {
+          metadata: {
+            name: "QueueItem",
+            types: ["felt252","bool"],
             customTypes: [],
           },
         }
@@ -157,6 +248,45 @@ export function defineContractComponents(world: World) {
           metadata: {
             name: "App",
             types: ["contractaddress","felt252","felt252","felt252","felt252"],
+            customTypes: [],
+          },
+        }
+      );
+    })(),
+    AppName: (() => {
+      return defineComponent(
+        world,
+        { name: RecsType.BigInt, system: RecsType.BigInt },
+        {
+          metadata: {
+            name: "AppName",
+            types: ["felt252","contractaddress"],
+            customTypes: [],
+          },
+        }
+      );
+    })(),
+    AppUser: (() => {
+      return defineComponent(
+        world,
+        { system: RecsType.BigInt, player: RecsType.BigInt, action: RecsType.BigInt },
+        {
+          metadata: {
+            name: "AppUser",
+            types: ["contractaddress","contractaddress","felt252"],
+            customTypes: [],
+          },
+        }
+      );
+    })(),
+    CoreActionsAddress: (() => {
+      return defineComponent(
+        world,
+        { key: RecsType.BigInt, value: RecsType.BigInt },
+        {
+          metadata: {
+            name: "CoreActionsAddress",
+            types: ["felt252","contractaddress"],
             customTypes: [],
           },
         }

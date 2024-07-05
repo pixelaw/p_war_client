@@ -137,7 +137,6 @@ const extractError = (message: string): string => {
         /'([^']+)'/,
         /not found in contract/,
         /Failure reason:\s(.*?)\./,
-        // 他のパターンをここに追加できます
     ];
 
 
@@ -149,3 +148,28 @@ const extractError = (message: string): string => {
     }
     return "Unknown error";
 }
+
+export const formatTimeRemaining = (remainingSeconds: number): string => {
+    const days = Math.floor(remainingSeconds / 86400);
+    remainingSeconds %= 86400;
+    const hours = Math.floor(remainingSeconds / 3600);
+    remainingSeconds %= 3600;
+    const minutes = Math.floor(remainingSeconds / 60);
+    const seconds = remainingSeconds % 60;
+  
+    let formattedTime = '';
+    if (days > 0) {
+        formattedTime += `${days}d`;
+    }
+    if (hours > 0) {
+      formattedTime += `${hours}h`;
+    }
+    if (minutes > 0) {
+      formattedTime += `${minutes}m`;
+    }
+    if (seconds > 0) {
+      formattedTime += `${seconds}s`;
+    }
+  
+    return formattedTime || '0s';
+  }

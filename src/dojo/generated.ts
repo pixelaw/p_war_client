@@ -3,7 +3,7 @@
 import { AccountInterface, BigNumberish} from 'starknet'
 import {DojoProvider} from "@dojoengine/core";
 import {PROPOSAL_CONTRACT_ADDRESS, VOTING_CONTRACT_ADDRESS} from "@/global/constants.js";
-import {ProposalType} from "@/global/types.js";
+import {ProposalType} from "@/global/types.ts";
 
 export type IWorld = Awaited<ReturnType<typeof setupWorld>>;
 
@@ -53,7 +53,7 @@ export async function setupWorld(provider: DojoProvider) {
       }
 
       const createProposal = async (
-          { account, gameId, proposalType, targetColor }: { account: AccountInterface, gameId: number, proposalType: ProposalType, targetColor: number }
+          { account, gameId, proposalType, targetArgs1, targetArgs2 }: { account: AccountInterface, gameId: number, proposalType: ProposalType, targetArgs1: number, targetArgs2: number}
       ) => {
           try {
               return await provider.execute(
@@ -64,7 +64,8 @@ export async function setupWorld(provider: DojoProvider) {
                       calldata: [
                           gameId,
                           proposalType,
-                          targetColor
+                          targetArgs1,
+                          targetArgs2
                       ]
                   },
                   {

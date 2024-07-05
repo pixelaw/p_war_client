@@ -41,7 +41,8 @@ const NewProposal: React.FC = () => {
         gameData.account.account,
         GAME_ID,
         type,
-        hexRGBtoNumber(color.replace('#', ''))
+        hexRGBtoNumber(color.replace('#', '')),
+        0
       ).then(() => navigate('/governance'))
     }
   };

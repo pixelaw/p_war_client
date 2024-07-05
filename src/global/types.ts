@@ -146,6 +146,9 @@ export enum ProposalType {
     Unknown,
     // ToggleAllowedApp,
     AddNewColor,
+    ResetToWhiteByColor,
+    ExtendGameEndTime,
+    ExpandArea,
     // ChangeGameDuration,
     // ChangePixelRecovery,
     // ExpandArea,
@@ -156,8 +159,8 @@ export enum ProposalType {
     // MakeADisasterByCoordinates,
     // ResetToWhiteByCoordinates,
     // MakeADisasterByColor,
-    ResetToWhiteByColor,
 }
+
 
 export type ProposalArgs = {
     address: string,

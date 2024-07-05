@@ -6,7 +6,8 @@ query GetProposals($game_id: usize) {
         index
         author
         proposal_type
-        target_color
+        target_args_1
+        target_args_2
         start
         end
         yes_px

@@ -64,7 +64,8 @@ const NewProposalPopupForMain: React.FC = () => {
         gameData.account.account,
         GAME_ID,
         type,
-        hexRGBtoNumber(formatColorToRGB(color).replace('#', ''))
+        hexRGBtoNumber(formatColorToRGB(color).replace('#', '')),
+        Number(0)
       ).then(() => {
         setIsCreatingNewProposal(false);
         // toastProposalAdded('Proposal Added'); // should be broadcast for everyone.
