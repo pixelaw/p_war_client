@@ -90,7 +90,8 @@ export function createSystemCalls({ client }: { client: IWorld }) {
         account: AccountInterface,
         gameId: number,
         proposalType: ProposalType,
-        targetColor: number,
+        targetArgs1: number,
+        targetArgs2: number,
     ) => {
         if (proposalType === ProposalType.Unknown)
             throw new Error('Unknown proposal type supplied');
@@ -98,7 +99,8 @@ export function createSystemCalls({ client }: { client: IWorld }) {
             account,
             gameId,
             proposalType,
-            targetColor,
+            targetArgs1,
+            targetArgs2,
         });
 
         await account.waitForTransaction(transaction_hash, {

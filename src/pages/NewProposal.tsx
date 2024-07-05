@@ -41,6 +41,7 @@ const NewProposal: React.FC = () => {
                     GAME_ID,
                     proposalType,
                     hexRGBtoNumber(color.replace('#', '')),
+                    Number(0),
                 )
                 .then(() => navigate('/governance'));
         }

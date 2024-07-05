@@ -146,3 +146,53 @@ const extractError = (message: string): string => {
     }
     return 'Unknown error';
 };
+
+export const formatTimeRemaining = (remainingSeconds: number): string => {
+    const days = Math.floor(remainingSeconds / 86400);
+    remainingSeconds %= 86400;
+    const hours = Math.floor(remainingSeconds / 3600);
+    remainingSeconds %= 3600;
+    const minutes = Math.floor(remainingSeconds / 60);
+    const seconds = remainingSeconds % 60;
+
+    let formattedTime = '';
+    if (days > 0) {
+        formattedTime += `${days}d`;
+    }
+    if (hours > 0) {
+        formattedTime += `${hours}h`;
+    }
+    if (minutes > 0) {
+        formattedTime += `${minutes}m`;
+    }
+    if (seconds > 0) {
+        formattedTime += `${seconds}s`;
+    }
+
+    return formattedTime || '0s';
+};
+
+export const formatTimeRemainingFotTitle = (remainingSeconds: number): string => {
+    const days = Math.floor(remainingSeconds / 86400);
+    remainingSeconds %= 86400;
+    const hours = Math.floor(remainingSeconds / 3600);
+    remainingSeconds %= 3600;
+    const minutes = Math.floor(remainingSeconds / 60);
+    const seconds = remainingSeconds % 60;
+
+    let formattedTime = '';
+    if (days > 0) {
+        formattedTime += `${days}D`;
+    }
+    if (hours > 0) {
+        formattedTime += ` ${hours}H`;
+    }
+    if (minutes > 0) {
+        formattedTime += ` ${minutes}M`;
+    }
+    if (seconds > 0) {
+        formattedTime += ` ${seconds}S`;
+    }
+
+    return formattedTime || '0S';
+};

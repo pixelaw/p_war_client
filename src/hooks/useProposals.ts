@@ -15,7 +15,8 @@ export type ProposalDataType = {
     index: number;
     author: string;
     proposal_type: number;
-    target_color: number;
+    target_args_1: number;
+    target_args_2: number;
     start: number;
     end: number;
     yes_px: number;
@@ -59,7 +60,8 @@ subscription {
         index
         author
         proposal_type
-        target_color
+        target_args_1
+        target_args_2
         start
         end
         yes_px

@@ -63,12 +63,14 @@ export async function setupWorld(provider: DojoProvider) {
             account,
             gameId,
             proposalType,
-            targetColor,
+            targetArgs1,
+            targetArgs2,
         }: {
             account: AccountInterface;
             gameId: number;
             proposalType: ProposalType;
-            targetColor: number;
+            targetArgs1: number;
+            targetArgs2: number;
         }) => {
             try {
                 return await provider.execute(
@@ -76,7 +78,7 @@ export async function setupWorld(provider: DojoProvider) {
                     {
                         contractAddress: PROPOSAL_CONTRACT_ADDRESS,
                         entrypoint: 'create_proposal',
-                        calldata: [gameId, proposalType, targetColor],
+                        calldata: [gameId, proposalType, targetArgs1, targetArgs2],
                     },
                     {
                         skipValidate: true,
