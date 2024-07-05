@@ -32,8 +32,6 @@ const createProposalTitle = (proposalType: ProposalType, hexColor: string) => {
             return `Make A Disaster: ${hexColor.toUpperCase()}`;
         case ProposalType.ResetToWhiteByColor:
             return `Reset To White: ${hexColor.toUpperCase()}`;
-        case ProposalType.MakeADisasterByColor:
-            return `Make A Disaster: ${hexColor.toUpperCase()}`;
         default: {
             console.error('unhandled proposal type: ', proposalType);
             return '';
