@@ -49,25 +49,25 @@ const ProposalListForMain: React.FC<ProposalListForMainProps> = ({
     const proposals = useProposals(GAME_ID);
     const proposalArray = proposals?.data ?? [];
 
-    const getStatusColor = (status: string) => {
-        if (status.startsWith('end in')) {
-            return 'bg-green-500';
-        } else if (status === 'closed') {
-            return 'bg-purple-500';
-        } else {
-            return 'bg-gray-500';
-        }
-    };
+    // const getStatusColor = (status: string) => {
+    //     if (status.startsWith('end in')) {
+    //         return 'bg-green-500';
+    //     } else if (status === 'closed') {
+    //         return 'bg-purple-500';
+    //     } else {
+    //         return 'bg-gray-500';
+    //     }
+    // };
 
-    const getStatusColorForBg = (status: string) => {
-        if (status.startsWith('end in')) {
-            return 'bg-black-800';
-        } else if (status === 'closed') {
-            return 'bg-gray-500';
-        } else {
-            return 'bg-black-800';
-        }
-    };
+    // const getStatusColorForBg = (status: string) => {
+    //     if (status.startsWith('end in')) {
+    //         return 'bg-black-800';
+    //     } else if (status === 'closed') {
+    //         return 'bg-gray-500';
+    //     } else {
+    //         return 'bg-black-800';
+    //     }
+    // };
 
     const handleVote = (proposal: StartVoteParam) => {
         setSelectedProposal(proposal);
