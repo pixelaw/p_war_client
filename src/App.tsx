@@ -279,10 +279,12 @@ function App() {
                                             )}
                                         </div>
                                         <button
-                                            className={`ml-auto text-white ${isProposalListVisible ? 'rotate-180' : ''} transition duration-300`}
+                                            className='ml-auto bg-gray-700 transition duration-300'
                                             onClick={toggleProposalList}
                                         >
-                                            <FaArrowDown />
+                                            <FaArrowDown
+                                                className={`text-white ${isProposalListVisible ? 'rotate-180' : ''}`}
+                                            />
                                         </button>
                                     </div>
                                     {isProposalListVisible && (
