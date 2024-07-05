@@ -18,8 +18,9 @@ import styles from './App.module.css';
 import FilterMenu from './components/FilterMenu/FilterMenu';
 import SimpleColorPicker from '@/components/ColorPicker/SimpleColorPicker.tsx';
 import MenuBar from '@/components/MenuBar/MenuBar.tsx';
-import { GAME_ID } from '@/global/constants.ts';
+import { GAME_ID, sounds } from '@/global/constants.ts';
 import useBoard from '@/hooks/useBoard.ts';
+import { useSound } from 'use-sound';
 import { useDojoPixelStore } from '@/stores/DojoPixelStore.ts';
 import Viewport from '@/webtools/components/Viewport/ViewPort.tsx';
 import { useSimpleTileStore } from '@/webtools/hooks/SimpleTileStore.ts';
@@ -50,6 +51,7 @@ function App() {
         setClickedCell,
         setSelectedApp, // added
     } = useViewStateStore();
+    const [play] = useSound(sounds.placeColor);
 
     // FIXME: should be in the ViewStateStore??
     const [isColorPickerVisible, setIsColorPickerVisible] = useState(false);
@@ -138,6 +140,7 @@ function App() {
             if (!isCoordinateInBounds(coordinate, bounds)) return;
         }
         setClickedCell(coordinate);
+        play();
     }
 
     function onColorSelect(color: string) {
@@ -276,10 +279,12 @@ function App() {
                                             )}
                                         </div>
                                         <button
-                                            className={`ml-auto text-white ${isProposalListVisible ? 'rotate-180' : ''} transition duration-300`}
+                                            className='ml-auto bg-gray-700 transition duration-300'
                                             onClick={toggleProposalList}
                                         >
-                                            <FaArrowDown />
+                                            <FaArrowDown
+                                                className={`text-white ${isProposalListVisible ? 'rotate-180' : ''}`}
+                                            />
                                         </button>
                                     </div>
                                     {isProposalListVisible && (
@@ -320,7 +325,6 @@ function App() {
             <ToastContainer
                 position='top-right'
                 className={'top-12 z-999 w-full min-w-[200px] max-w-[420px]'}
-                limit={2}
                 transition={Slide}
                 closeButton={false}
                 newestOnTop

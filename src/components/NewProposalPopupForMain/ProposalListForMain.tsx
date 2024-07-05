@@ -2,9 +2,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ProposalItem, { type StartVoteParam } from '../ProposalList/ProposalItem';
 import { usePixelawProvider } from '@/providers/PixelawProvider';
-import { GAME_ID } from '@/global/constants.ts';
+import { GAME_ID, sounds } from '@/global/constants.ts';
 import { toastContractError } from '@/global/utils.ts';
 import useProposals from '@/hooks/useProposals.ts';
+import { toastSuccess } from '../Toast';
+import { useSound } from 'use-sound';
 
 interface ProposalListForMainProps {
     headerHeight: number;
@@ -19,6 +21,8 @@ const ProposalListForMain: React.FC<ProposalListForMainProps> = ({
     const [searchTerm, setSearchTerm] = useState('');
     const filterRef = useRef<HTMLDivElement>(null);
     const modalRef = useRef<HTMLDivElement>(null);
+    const [playSuccess] = useSound(sounds.success, { volume: 0.5 });
+    const [playError] = useSound(sounds.error, { volume: 0.5 });
 
     const [selectedProposal, setSelectedProposal] = useState<StartVoteParam | null>(null);
     const [voteType, setVoteType] = useState<'for' | 'against'>('for');
@@ -84,10 +88,17 @@ const ProposalListForMain: React.FC<ProposalListForMainProps> = ({
                 votePoints === '' ? 0 : votePoints,
                 voteType === 'for',
             )
-            .then(() => setSelectedProposal(null))
+            .then(() => {
+                setSelectedProposal(null);
+                toastSuccess({
+                    message: `Vote submitted`,
+                });
+                playSuccess();
+            })
             .catch((e) => {
                 console.error('handleVoteProposal error: ', e);
                 toastContractError(e);
+                playError();
             });
     };
 

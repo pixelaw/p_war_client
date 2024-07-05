@@ -7,6 +7,8 @@ import GetProposals from '@/../graphql/GetProposals.graphql';
 import { toastSuccess } from '@/components/Toast';
 import { usePixelawProvider } from '@/providers/PixelawProvider.tsx';
 import { useSettingsStore } from '@/stores/SettingsStore.ts';
+import { sounds } from '@/global/constants';
+import { useSound } from 'use-sound';
 
 export type ProposalDataType = {
     game_id: number;
@@ -80,6 +82,7 @@ type SubscriptionMessageType = {
 };
 
 export const useProposalSubscription = () => {
+    const [play] = useSound(sounds.success, { volume: 0.5 });
     const settings = useSettingsStore();
     const baseUrl = settings?.config?.toriiUrl ?? 'http://localhost:8080';
     const client = createClient({
@@ -118,6 +121,8 @@ export const useProposalSubscription = () => {
                         toastSuccess({
                             message: `${playerAddress} just created a new proposal`,
                         });
+
+                        play();
                     });
                 },
                 error: (err) => console.error(err),
@@ -126,5 +131,5 @@ export const useProposalSubscription = () => {
         );
 
         return () => unsubscribe();
-    }, [gameData, queryClient, client]);
+    }, [gameData, queryClient, client, play]);
 };
