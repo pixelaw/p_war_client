@@ -82,7 +82,7 @@ type SubscriptionMessageType = {
 };
 
 export const useProposalSubscription = () => {
-    const [play] = useSound(sounds.activateProposal, { volume: 0.5 });
+    const [play] = useSound(sounds.success, { volume: 0.5 });
     const settings = useSettingsStore();
     const baseUrl = settings?.config?.toriiUrl ?? 'http://localhost:8080';
     const client = createClient({
@@ -118,11 +118,11 @@ export const useProposalSubscription = () => {
                             newProposal.author.toLowerCase();
                         const playerAddress = isPlayer ? 'You' : shortenHex(newProposal.author, 10);
 
-                        play();
-
                         toastSuccess({
                             message: `${playerAddress} just created a new proposal`,
                         });
+
+                        play();
                     });
                 },
                 error: (err) => console.error(err),

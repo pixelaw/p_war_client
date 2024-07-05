@@ -1,32 +1,49 @@
-import {Slide, toast, ToastContainer} from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import { Slide, toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 type ToastType = {
-    message: string
-}
+    message: string;
+};
 
-export const toastSuccess = ({message}: ToastType) =>
+export const toastSuccess = ({ message }: ToastType) =>
     toast.success(message, {
         icon: (
-            <img src="/assets/svg/icon_toast_success.svg" alt={'Success Toast'} width={'43px'} height={'43px'}/>
+            <img
+                src='/assets/svg/icon_toast_success.svg'
+                alt={'Success Toast'}
+                width={'43px'}
+                height={'43px'}
+            />
         ),
-    })
-export const toastError = ({message}: ToastType) =>
+    });
+export const toastError = ({ message }: ToastType) =>
     toast.error(message, {
-        icon: <img src="/assets/svg/icon_toast_error.svg" alt={'Error Toast'} width={'43px'} height={'43px'}/>,
-    })
-export const toastWarn = ({message}: ToastType) =>
+        icon: (
+            <img
+                src='/assets/svg/icon_toast_error.svg'
+                alt={'Error Toast'}
+                width={'43px'}
+                height={'43px'}
+            />
+        ),
+    });
+export const toastWarn = ({ message }: ToastType) =>
     toast.warn(message, {
         icon: (
-            <img src="/assets/svg/icon_toast_warning.svg" alt={'Warning Toast'} width={'43px'} height={'43px'}/>
+            <img
+                src='/assets/svg/icon_toast_warning.svg'
+                alt={'Warning Toast'}
+                width={'43px'}
+                height={'43px'}
+            />
         ),
-    })
+    });
 
 const Toast = () => {
     return (
         <>
             <ToastContainer
-                position="top-right"
+                position='top-right'
                 className={'top-auto z-999 w-full min-w-[200px] max-w-[420px]'}
                 limit={2}
                 transition={Slide}
@@ -43,7 +60,7 @@ const Toast = () => {
                 }}
             />
         </>
-    )
-}
+    );
+};
 
-export default Toast
+export default Toast;

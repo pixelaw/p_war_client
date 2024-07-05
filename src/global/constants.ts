@@ -83,5 +83,6 @@ export const proposals = [
 
 export const sounds = {
     placeColor: '/assets/sounds/effects/place_color.mp3',
-    activateProposal: '/assets/sounds/effects/activate_proposal.mp3',
+    success: '/assets/sounds/effects/success.mp3',
+    error: '/assets/sounds/effects/error.mp3',
 };
