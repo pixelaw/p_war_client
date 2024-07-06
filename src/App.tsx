@@ -13,7 +13,6 @@ import NewProposalPopupForMain from '@/components/NewProposalPopupForMain/NewPro
 import { FaArrowDown, FaFilter } from 'react-icons/fa';
 import { Route, Routes } from 'react-router-dom';
 import ProposalListForMain from './components/NewProposalPopupForMain/ProposalListForMain';
-import { Slide, ToastContainer } from 'react-toastify';
 import styles from './App.module.css';
 import FilterMenu from './components/FilterMenu/FilterMenu';
 import SimpleColorPicker from '@/components/ColorPicker/SimpleColorPicker.tsx';
@@ -322,22 +321,6 @@ function App() {
                     <Route path='/proposal/:id' element={<ProposalDetails />} />
                 </Routes>
             </div>
-            <ToastContainer
-                position='top-right'
-                className={'top-12 z-999 w-full min-w-[200px] max-w-[420px]'}
-                transition={Slide}
-                closeButton={false}
-                newestOnTop
-                hideProgressBar
-                toastStyle={{
-                    background: '#151f2c',
-                    padding: '15px',
-                    marginTop: '15px',
-                    color: '#fff',
-                    borderRadius: 0,
-                    boxShadow: '5px 5px 0px #00000029',
-                }}
-            />
         </div>
     );
     //</editor-fold>
