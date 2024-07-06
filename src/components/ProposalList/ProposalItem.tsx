@@ -5,6 +5,7 @@ import { numRGBAToHex } from '@/webtools/utils.ts';
 import { GAME_ID, NEEDED_YES_PX } from '@/global/constants.ts';
 import { formatWalletAddress, toastContractError, formatTimeRemaining, formatTimeRemainingFotTitle } from '@/global/utils.ts';
 import { type ProposalDataType } from '@/hooks/useProposals.ts';
+import useGetPixelsToReset from "@/hooks/useGetPixelsToReset.ts";
 
 export type StartVoteParam = {
     id: number;
@@ -69,6 +70,8 @@ const ProposalItem: React.FC<PropsType> = ({ proposal, onStartVote, filter, sear
     const start = Number(proposal?.start ?? 0);
     const end = Number(proposal?.end ?? 0);
 
+    const getPixelsToReset = useGetPixelsToReset()
+
     useEffect(() => {
         if (proposalStatus === 'closed') return;
 
@@ -114,10 +117,19 @@ const ProposalItem: React.FC<PropsType> = ({ proposal, onStartVote, filter, sear
         comments: '',
     };
 
-    const handleActivateProposal = () => {
+    const handleActivateProposal = async () => {
         if (!gameData?.account.account) return;
+        let clearData: undefined | {x: number, y: number}[] = undefined
+
+        // check if proposal is of type reset
+        if (proposal.proposal_type === 2) {
+            // get all colors to reset
+            clearData = await getPixelsToReset.mutateAsync({color: proposal.target_args_1})
+        }
+
+
         gameData.setup.systemCalls
-            .activateProposal(gameData.account.account, GAME_ID, proposal.index)
+            .activateProposal(gameData.account.account, GAME_ID, proposal.index, clearData)
             .then(() => console.log('activateProposal', proposal))
             .catch((e) => {
                 console.error('handleActivateProposal error: ', e);

@@ -1,0 +1,10 @@
+query GetResetPixels($color: u32, $xGTE: u32, $xLTE: u32, $yGTE: u32, $yLTE: u32, $limit: Int) {
+  pixelModels(where: { colorEQ: $color, xGTE: $xGTE, xLTE:$xLTE, yGTE: $yGTE, yLTE: $yLTE}, limit: $limit) {
+    edges {
+      node {
+        x
+        y
+      }
+    }
+  }
+}

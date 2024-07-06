@@ -110,11 +110,12 @@ export function createSystemCalls({ client }: { client: IWorld }) {
         await new Promise((resolve) => setTimeout(resolve, 1000));
     };
 
-    const activateProposal = async (account: AccountInterface, gameId: number, index: number) => {
+    const activateProposal = async (account: AccountInterface, gameId: number, index: number, clearData?: {x: number, y: number}[]) => {
         const { transaction_hash } = await client.actions.activateProposal({
             account,
             gameId,
             index,
+            clearData
         });
 
         await account.waitForTransaction(transaction_hash, {

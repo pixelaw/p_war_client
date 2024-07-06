@@ -94,18 +94,36 @@ export async function setupWorld(provider: DojoProvider) {
             account,
             gameId,
             index,
+            clearData
         }: {
             account: AccountInterface;
             gameId: number;
             index: number;
+            clearData?: {x: number, y: number}[]
         }) => {
+
+            const clearDataArgs: number[] = []
+            if (clearData) {
+                clearData.forEach(({x, y}) => {
+                    clearDataArgs.push(x)
+                    clearDataArgs.push(y)
+                })
+            }
+
+            if (clearData) console.log(clearDataArgs)
+
             try {
                 return await provider.execute(
                     account,
                     {
                         contractAddress: PROPOSAL_CONTRACT_ADDRESS,
                         entrypoint: 'activate_proposal',
-                        calldata: [gameId, index],
+                        calldata: [
+                            gameId,
+                            index,
+                            clearData?.length ?? 0,
+                            ...clearDataArgs
+                        ],
                     },
                     {
                         skipValidate: true,
