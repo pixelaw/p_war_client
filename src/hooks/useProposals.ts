@@ -1,4 +1,3 @@
-import { shortenHex } from '@dojoengine/utils';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { GraphQLClient } from 'graphql-request';
 import { createClient } from 'graphql-ws';
@@ -9,6 +8,7 @@ import { usePixelawProvider } from '@/providers/PixelawProvider.tsx';
 import { useSettingsStore } from '@/stores/SettingsStore.ts';
 import { sounds } from '@/global/constants';
 import { useSound } from 'use-sound';
+import { formatWalletAddressWithEmoji } from '@/global/utils';
 
 export type ProposalDataType = {
     game_id: number;
@@ -118,7 +118,9 @@ export const useProposalSubscription = () => {
                         const isPlayer =
                             gameData?.account?.account?.address?.toLowerCase() ===
                             newProposal.author.toLowerCase();
-                        const playerAddress = isPlayer ? 'You' : shortenHex(newProposal.author, 10);
+                        const playerAddress = isPlayer
+                            ? 'You'
+                            : formatWalletAddressWithEmoji(newProposal.author);
 
                         toastSuccess({
                             message: `${playerAddress} just created a new proposal`,
