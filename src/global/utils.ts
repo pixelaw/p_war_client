@@ -144,12 +144,15 @@ const extractError = (message: string): string => {
         /'([^']+)'/,
         /not found in contract/,
         /Failure reason:\s(.*?)\./,
-        // 他のパターンをここに追加できます
+        /invalid transaction nonce/,
     ];
 
     for (const pattern of patterns) {
         const match = message.match(pattern);
         if (match) {
+            if (pattern.source.includes('invalid transaction nonce')) {
+                return 'You clicked too quickly';
+            }
             return match[1] || match[0];
         }
     }
