@@ -94,23 +94,22 @@ export async function setupWorld(provider: DojoProvider) {
             account,
             gameId,
             index,
-            clearData
+            clearData,
         }: {
             account: AccountInterface;
             gameId: number;
             index: number;
-            clearData?: {x: number, y: number}[]
+            clearData?: { x: number; y: number }[];
         }) => {
-
-            const clearDataArgs: number[] = []
+            const clearDataArgs: number[] = [];
             if (clearData) {
-                clearData.forEach(({x, y}) => {
-                    clearDataArgs.push(x)
-                    clearDataArgs.push(y)
-                })
+                clearData.forEach(({ x, y }) => {
+                    clearDataArgs.push(x);
+                    clearDataArgs.push(y);
+                });
             }
 
-            if (clearData) console.log(clearDataArgs)
+            if (clearData) console.log(clearDataArgs);
 
             try {
                 return await provider.execute(
@@ -118,12 +117,7 @@ export async function setupWorld(provider: DojoProvider) {
                     {
                         contractAddress: PROPOSAL_CONTRACT_ADDRESS,
                         entrypoint: 'activate_proposal',
-                        calldata: [
-                            gameId,
-                            index,
-                            clearData?.length ?? 0,
-                            ...clearDataArgs
-                        ],
+                        calldata: [gameId, index, clearData?.length ?? 0, ...clearDataArgs],
                     },
                     {
                         skipValidate: true,
