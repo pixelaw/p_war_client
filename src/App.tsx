@@ -310,7 +310,7 @@ function App() {
                                         }}
                                         style={{ display: isColorPickerVisible ? 'none' : 'flex' }}
                                     >
-                                        Place a Pixel
+                                        Choose a Color
                                     </button>
                                 </div>
                             </>
