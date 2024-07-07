@@ -3,7 +3,7 @@ import { usePixelawProvider } from '@/providers/PixelawProvider.tsx';
 import { ProposalType } from '@/global/types.ts';
 import { numRGBAToHex } from '@/webtools/utils.ts';
 import { GAME_ID, NEEDED_YES_PX } from '@/global/constants.ts';
-import { formatWalletAddress, toastContractError, formatTimeRemaining, formatTimeRemainingFotTitle } from '@/global/utils.ts';
+import { formatWalletAddressWithEmoji, toastContractError, formatTimeRemaining, formatTimeRemainingFotTitle } from '@/global/utils.ts';
 import { type ProposalDataType } from '@/hooks/useProposals.ts';
 import useGetPixelsToReset from "@/hooks/useGetPixelsToReset.ts";
 
@@ -30,7 +30,7 @@ const createProposalTitle = (proposalType: ProposalType, target_args_1: number, 
         case ProposalType.AddNewColor:
             return `Adding A New Color: ${numRGBAToHex(target_args_1).toUpperCase()}`;
         case ProposalType.ResetToWhiteByColor:
-            return `Make A Disaster: ${numRGBAToHex(target_args_1).toUpperCase()}`;
+            return `Reset To White: ${numRGBAToHex(target_args_1).toUpperCase()}`;
         case ProposalType.ExtendGameEndTime:
             return `Extend Game End Time: ${formatTimeRemainingFotTitle(target_args_1)}`;
         case ProposalType.ExpandArea:
@@ -167,7 +167,7 @@ const ProposalItem: React.FC<PropsType> = ({ proposal, onStartVote, filter, sear
                     </div>
                 </div>
                 <div className='mb-2 text-xs text-gray-400'>
-                    proposed by {formatWalletAddress(proposal.author.toString())}
+                    proposed by {formatWalletAddressWithEmoji(proposal.author.toString())}
                 </div>
                 <div
                     className='mr-30 relative mb-1 flex h-2 rounded-full bg-gray-700'
