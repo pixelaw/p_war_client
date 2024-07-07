@@ -2,6 +2,7 @@ import { shortString } from 'starknet';
 import { toastError, toastSuccess } from '@/components/Toast';
 import { type Position } from '@/global/types.ts';
 import { type Coordinate } from '@/webtools/types.ts';
+import { emojiAvatarForAddress } from '@/components/Avatar/emojiAvatarForAddress';
 
 /*
  * @notice converts a number to hexadecimal
@@ -70,6 +71,14 @@ export const formatWalletAddress = (address: string) => {
         return `${address.slice(0, 4)}...${address.slice(-4)}`;
     }
     return address;
+};
+
+export const formatWalletAddressWithEmoji = (address: string) => {
+    const avatar = emojiAvatarForAddress(address);
+    if (address.length > 10) {
+        return avatar.emoji + `${address.slice(0, 4)}...${address.slice(-4)}`;
+    }
+    return avatar.emoji + address;
 };
 
 // Takes a RGB hex nr and converts it to numeric rgba (0 alpha)

@@ -12,8 +12,8 @@ const PxCounter = () => {
     const player = usePlayer(address);
     const pixelRecoveryRate = usePixelRecoveryRate();
 
-    const playerPx = player?.data?.current_px ?? 10;
-    const maxPx = player?.data?.max_px ?? 10;
+    const playerPx = player?.data?.current_px ?? 10; // Default to 10 if player is not loaded
+    const maxPx = player?.data?.max_px ?? 10; // Default to 10 if player is not loaded
     const recoveryRate = pixelRecoveryRate?.data?.rate ?? 0;
     const playerLastDate = player?.data?.last_date ?? 0;
 

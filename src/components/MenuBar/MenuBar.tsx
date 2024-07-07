@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './MenuBar.module.css';
-import { formatWalletAddress } from '@/global/utils.ts';
+import { formatWalletAddressWithEmoji } from '@/global/utils.ts';
 import PxCounter from '@/components/MenuBar/PxCounter.tsx';
 
 interface MenuBarProps {
@@ -45,7 +45,7 @@ const MenuBar: React.FC<MenuBarProps> = ({ address, endTime }) => {
             <div className={styles.countdownContainer}>{timeLeft}</div>
 
             <div className={styles.rightSection}>
-                <div className={styles.addressContainer}>{formatWalletAddress(address || '')}</div>
+                <div className={styles.addressContainer}>{formatWalletAddressWithEmoji(address || '')}</div>
                 <PxCounter />
             </div>
         </div>
